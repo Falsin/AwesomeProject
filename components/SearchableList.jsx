@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useMemo, useState } from 'react';
 import { View, Text, Modal, StyleSheet, SectionList, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 
@@ -35,7 +34,7 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
             placeholder="Искать"
             onChangeText={onChangeSearch}
             value={searchQuery}
-            inputStyle={{color: "red", margin: 0, padding: 0}}
+            inputStyle={{minHeight: 40}}
           />
           <Pressable onPress={onCancel} style={styles.cancelBtn}>
             <Text>Отменить</Text>
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexGrow: 1,
     marginRight: 10,
-    //borderRadius: 10
+    height: 40
   },
   cancelBtn: {
     alignSelf: "center"

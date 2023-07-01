@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Button, Pressable, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { useState } from 'react';
 
@@ -26,7 +26,7 @@ export default function App() {
   }
 
   return (
-    <View style={[styles.container, modalVisible ? styles.active : null]}>
+    <View style={[styles.container, (modalVisible && Platform.OS === "android") ? styles.active : null]}>
       <View>
         <Text>{city?.name || null}</Text>
 
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     paddingTop: Constants.statusBarHeight,
+    height: "100%"
   },
   active: {
     backgroundColor: "gray"
