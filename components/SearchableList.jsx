@@ -10,15 +10,24 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
 
   const sectionList = useCreateSectionList(list, searchQuery);
 
+  const [onTouchStart, onTouchMove, onTouchEnd] = useVerticalSwipe(onCancel);
+
   return (
     <Modal
+      onRequestClose={onCancel}
       visible={visible}
       animationType="slide"
       presentationStyle='pageSheet'
-      statusBarTranslucent={false}
     >
       <View style={styles.container}>
-        <Text style={styles.info}>Выберите город, чтобы посмотреть меню</Text>
+
+        <View
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <Text style={styles.info}>Выберите город, чтобы посмотреть меню</Text>
+        </View>
 
         <View style={styles.searchContainer} >
           <Searchbar
@@ -37,6 +46,30 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
       </View>
     </Modal>
   )
+}
+
+const useVerticalSwipe = (onCancel) => {
+  let touchStart = null;
+  let touchEnd = null;
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    touchEnd = null;
+    touchStart = e.nativeEvent.pageY;
+  }
+
+  const onTouchMove = e => touchEnd = e.nativeEvent.pageY;
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return null;
+
+    const distance = touchEnd - touchStart;
+    if (distance >= minSwipeDistance) {
+      onCancel(false)
+    }
+  }
+
+  return [onTouchStart, onTouchMove, onTouchEnd];
 }
 
 const useCreateSectionList = (list, searchQuery) => {
@@ -98,7 +131,7 @@ function List({ list, onSelect}) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    height: "100%",
+    height: "100%"
   },
   info: {
     textAlign: "center",
