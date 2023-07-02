@@ -1,11 +1,14 @@
-import { useMemo, useState } from 'react';
-import { View, Text, Modal, StyleSheet, SectionList, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import { View, Text, Modal, StyleSheet, SectionList, Pressable } from 'react-native';
 
 import { Searchbar } from 'react-native-paper';
 
 export default function SearchableList({ visible, list, onCancel, onSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  
+  useEffect(() => {
+    setSearchQuery('');
+  }, [visible])
 
   const sectionList = useCreateSectionList(list, searchQuery);
 
@@ -28,11 +31,11 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
           <Text style={styles.info}>Выберите город, чтобы посмотреть меню</Text>
         </View>
 
-        <View style={styles.searchContainer} >
+        <View style={styles.searchContainer}>
           <Searchbar
             style={styles.searchBar}
             placeholder="Искать"
-            onChangeText={onChangeSearch}
+            onChangeText={setSearchQuery}
             value={searchQuery}
             inputStyle={{minHeight: 40}}
           />
@@ -41,7 +44,7 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
           </Pressable>
         </View>
 
-          <List list={sectionList} onSelect={onSelect}/>
+        <List list={sectionList} onSelect={onSelect}/>
       </View>
     </Modal>
   )
@@ -93,23 +96,31 @@ const useCreateSectionList = (list, searchQuery) => {
       }
     });
 
-    return Object.entries(obj).map(([key, arr]) => {
+    return Object.entries(obj).map(([key, arr], id) => {
       return {
         title: key,
-        data: arr
+        data: arr,
+        sectionId: id
       }
     })
   }, [filterArr])
 }
 
-function List({ list, onSelect}) {
-  const renderHeader = ({section: {title}}) => (
-    <Text style={styles.header}>{title.toUpperCase()}</Text>
+function List({ list, onSelect }) {
+  const renderHeader = ({section: { title }}) => (
+    <View style={styles.header}>
+      <Text>{title.toUpperCase()}</Text>
+    </View>
   )
 
-  const renderCityItem = ({item}) => (
+  const renderCityItem = ({item, index, section: { data, sectionId }}) => (
     <Pressable onPress={() => onSelect(item)}>
-      <View style={styles.item}>
+      <View
+        style={[
+          styles.item,
+          (index === data.length - 1 && sectionId === list.length - 1) ? styles.lastItem : null
+        ]}
+      >
         <Text>{item.name}</Text>
       </View>
     </Pressable>
@@ -123,6 +134,7 @@ function List({ list, onSelect}) {
       renderSectionHeader={renderHeader}
       stickySectionHeadersEnabled={true}
       showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
     />
   )
 }
@@ -151,11 +163,15 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 15,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 2,
     backgroundColor: "white"
   },
   item: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 2,
     padding: 15,
+    backgroundColor: "white"
   },
+  lastItem: {
+    borderBottomWidth: 0
+  }
 })
