@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, Pressable, Platform } from 'react-native';
+import { Text, View, StyleSheet, Button, Pressable, Platform, Modal } from 'react-native';
 import Constants from 'expo-constants';
 import { useState } from 'react';
 
@@ -35,12 +35,18 @@ export default function App() {
         </Pressable>
       </View>
 
-      <SearchableList
+      <Modal
         visible={modalVisible}
-        list={items}
-        onCancel={() => setModalVisible(false)}
-        onSelect={onSelect}
-      />
+        animationType="slide"
+        presentationStyle='pageSheet'
+      >
+        <SearchableList
+          visible={modalVisible}
+          list={items}
+          onCancel={() => setModalVisible(false)}
+          onSelect={onSelect}
+        />
+    </Modal>
     </View>
   );
 }
