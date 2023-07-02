@@ -39,7 +39,7 @@ export default function App() {
         visible={modalVisible}
         animationType="slide"
         presentationStyle='pageSheet'
-        onDismiss={() => setModalVisible(false)}
+        onRequestClose={() => setModalVisible(false)}
       >
         <SearchableList
           visible={modalVisible}
