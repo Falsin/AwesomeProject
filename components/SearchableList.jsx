@@ -8,7 +8,7 @@ import useCreateSectionList from '../hooks/useCreateSectionList';
 
 export default function SearchableList({ visible, list, onCancel, onSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   useEffect(() => {
     setSearchQuery('');
   }, [visible])
