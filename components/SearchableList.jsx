@@ -6,12 +6,8 @@ import List from './List';
 import useVerticalSwipe from '../hooks/useVerticalSwipe';
 import useCreateSectionList from '../hooks/useCreateSectionList';
 
-export default function SearchableList({ visible, list, onCancel, onSelect }) {
+export default function SearchableList({ list, onCancel, onSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    setSearchQuery('');
-  }, [visible])
 
   const sectionList = useCreateSectionList(list, searchQuery);
 
@@ -24,6 +20,7 @@ export default function SearchableList({ visible, list, onCancel, onSelect }) {
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
+        testID="test-touch-events"
       >
         <Text style={styles.info}>Выберите город, чтобы посмотреть меню</Text>
       </View>

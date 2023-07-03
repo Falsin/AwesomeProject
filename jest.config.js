@@ -1,5 +1,5 @@
 const config = {
-  "preset": "react-native",
+  preset: "react-native",
   verbose: true,
   testEnvironment: 'jest-environment-jsdom',
   transform: {

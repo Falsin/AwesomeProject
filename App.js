@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, Pressable, Platform, Modal } from 'react-native';
+import { Text, View, StyleSheet, Pressable, Platform, Modal } from 'react-native';
 import Constants from 'expo-constants';
 import { useState } from 'react';
 
@@ -42,7 +42,6 @@ export default function App() {
         onRequestClose={() => setModalVisible(false)}
       >
         <SearchableList
-          visible={modalVisible}
           list={items}
           onCancel={() => setModalVisible(false)}
           onSelect={onSelect}
