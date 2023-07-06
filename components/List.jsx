@@ -18,7 +18,7 @@ export default function List({ list, onSelect }) {
           (index === data.length - 1 && sectionId === list.length - 1) ? styles.lastItem : null
         ]}
       >
-        <Text testID='list-item'>{item.name}</Text>
+        <Text testID={`list-item`}>{item.name}</Text>
       </View>
     </Pressable>
   )
