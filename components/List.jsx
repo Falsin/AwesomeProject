@@ -1,11 +1,14 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import { View, Text, StyleSheet, SectionList, Pressable } from 'react-native';
 
 export default function List({ list, onSelect }) {
-  const renderHeader = ({section: { title }}) => (
-    <View style={styles.header}>
+  const renderHeader = ({section: { title }}) => {
+
+    return <View style={styles.header}>
       <Text>{title.toUpperCase()}</Text>
     </View>
-  )
+  }
 
   const renderCityItem = ({item, index, section: { data, sectionId }}) => (
     <Pressable onPress={() => onSelect(item)}>
@@ -15,13 +18,14 @@ export default function List({ list, onSelect }) {
           (index === data.length - 1 && sectionId === list.length - 1) ? styles.lastItem : null
         ]}
       >
-        <Text>{item.name}</Text>
+        <Text testID='list-item'>{item.name}</Text>
       </View>
     </Pressable>
   )
 
   return (
     <SectionList
+      testID='list'
       sections={list}
       keyExtractor={item => item.id}
       renderItem={renderCityItem}
@@ -29,6 +33,7 @@ export default function List({ list, onSelect }) {
       stickySectionHeadersEnabled={true}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps={'handled'}
+      initialNumToRender={100}
     />
   )
 }

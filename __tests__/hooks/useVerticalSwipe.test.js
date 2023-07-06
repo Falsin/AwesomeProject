@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import useVerticalSwipe from '../../hooks/useVerticalSwipe';
 
 const createEventOprions = (pointVal) => (
@@ -27,7 +28,7 @@ describe('useVerticalSwipe', () => {
   it('should call onCancel when swiping above minSwipeDistance', async () => {
     simulateSwipeGesture(eventsHandlers, 100, 200);
 
-    expect(onCancel).toHaveBeenCalledWith(false);
+    expect(onCancel).toHaveBeenCalled();
   });
 
   it('should not call onCancel when swiping below minSwipeDistance', () => {

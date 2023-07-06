@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook } from "@testing-library/react";
 import useCreateSectionList from "../../hooks/useCreateSectionList";
 
