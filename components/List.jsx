@@ -3,10 +3,11 @@
 import { View, Text, StyleSheet, SectionList, Pressable } from 'react-native';
 
 export default function List({ list, onSelect }) {
+  //console.log(list[1])
   const renderHeader = ({section: { title }}) => {
 
     return <View style={styles.header}>
-      <Text>{title.toUpperCase()}</Text>
+      <Text style={styles.headerText}>{title.toUpperCase()}</Text>
     </View>
   }
 
@@ -41,12 +42,18 @@ export default function List({ list, onSelect }) {
 const styles = StyleSheet.create({
   header: {
     padding: 15,
-    borderBottomWidth: 2,
-    backgroundColor: "white"
+    borderBottomWidth: 1,
+    borderBottomColor: "#efefef",
+    backgroundColor: "white",
+  },
+  headerText: {
+    color: "#ababab",
+    fontWeight: "bold"
   },
   item: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     padding: 15,
+    borderBottomColor: "#efefef",
     backgroundColor: "white"
   },
   lastItem: {

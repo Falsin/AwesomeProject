@@ -1,12 +1,12 @@
 const config = {
-  preset: "react-native",
+  preset: "jest-expo",
   verbose: true,
   testEnvironment: 'jest-environment-jsdom',
   transform: {
     "^.+\\.(js|jsx)$": "babel-jest"
   },
   transformIgnorePatterns: [
-    "node_modules/(?!(@react-native|react-native|pinar|react-native-vector-icons|native-base)/)"
+    'node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|@rneui)|expo(nent)?|@expo(nent)?/.*/)'
   ],
   globals: {
     __DEV__: true

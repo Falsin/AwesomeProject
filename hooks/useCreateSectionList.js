@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 export default (list, searchQuery) => {
   const sortedArr = useMemo(() => (
-    _.sortBy(list, (obj) => obj.name)
+    _.sortBy(list, (obj) => _.trim(obj.name))
   ), [list]);
 
   const filterArr = useMemo(() => (
